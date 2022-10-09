@@ -1,5 +1,6 @@
 html, body {
     text-align: center;
+    font-size: 1.2rem;
 }
 
 .guessing-btn {
@@ -10,4 +11,11 @@ html, body {
     margin-bottom: 1em;
     margin-left: 5em;
     margin-right: 5em;
+}
+
+.guessingGame {
+    border: 1px solid black;
+    background: orange;
+    padding-top: 1em;
+    font-weight: bold;
 }

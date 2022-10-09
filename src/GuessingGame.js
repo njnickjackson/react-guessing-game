@@ -5,6 +5,8 @@ import './GuessingGame.css'
 function GuessingGame() {
     const [luckyNum, setLuckyNum] = useState("")
     const [numOfGuesses, setNumOfGuesses] = useState(0)
+    const [userGuess, setUserGuess] = useState("")
+    const [userMessage, setUserMessage] = useState("Start Guessing")
     
     const luckyLocal = localStorage.getItem("luckyNum")
     const numOfGuessesLocal = JSON.parse(localStorage.getItem("numOfGuesses"))
@@ -22,13 +24,31 @@ function GuessingGame() {
         setLuckyNum(currentLucky)
         localStorage.setItem("luckyNum", currentLucky)
         localStorage.setItem("numOfGuesses", 0)
-        console.log(luckyNum) 
+        console.log(luckyNum)
+        setUserGuess("")
+        setUserMessage("Start Guessing")
     }
 
     function findNumOfGuesses() {
         setNumOfGuesses(numOfGuessesLocal + 1)
         localStorage.setItem("numOfGuesses", (numOfGuessesLocal + 1))
-    }       
+        if (parseInt(userGuess) < JSON.parse(luckyLocal)) {
+            setUserMessage(`Number (${userGuess}) is too low`)
+            setUserGuess("")
+        }
+        if (parseInt(userGuess) > JSON.parse(luckyLocal)) {
+            setUserMessage(`Number (${userGuess}) is too high`)
+            setUserGuess("")
+        } 
+        if (parseInt(userGuess) === JSON.parse(luckyLocal)) {
+            setUserMessage(`Congrats you guessed it! The lucky number was ${userGuess}!`)
+        }
+
+    }
+    
+    function findUserGuess(event) {
+        setUserGuess(event.target.value)
+    }
 
     return (
         <div className="guessingGame">
@@ -37,7 +57,7 @@ function GuessingGame() {
             <div className="guessing-form">
                 <Form>
                     <Form.Label></Form.Label>
-                    <Form.Control type="text" name="name"/>
+                    <Form.Control type="text" name="guess" value={userGuess} onChange={findUserGuess}/>
                 </Form>
             </div>
             <div className="guessing-btn">
@@ -46,6 +66,7 @@ function GuessingGame() {
             <div className="guessing-btn">
                 <Button type="submit" onClick={luckyNumber}>Reset</Button>
             </div>
+            <p>{userMessage}</p>
         </div>
     )
 }
