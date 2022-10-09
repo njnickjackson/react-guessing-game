@@ -1,0 +1,13 @@
+html, body {
+    text-align: center;
+}
+
+.guessing-btn {
+    margin-bottom: 1em;
+}
+
+.guessing-form {
+    margin-bottom: 1em;
+    margin-left: 5em;
+    margin-right: 5em;
+}
